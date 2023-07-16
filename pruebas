@@ -1,0 +1,167 @@
+const client1={name:"juanita",lastName:"de los palotes", cellphone:4512266,email:"juenita@delospalote.com",estado:"general",doctor:"Osso de Bernoulli",date:'2018-06-12T19:30',initialHour:"8:30",finalHour:"9:00",location:"la paz"};
+const client2={name:"juanito",lastName:"de los palotes", cellphone:1782266,email:"juenito@delospalote.com",estado:"general",doctor:"Osso de Bernoulli",date:'2023-07-12T19:30',initialHour:"7:30",finalHour:"8:00",location:"la paz"};
+const client3={name:"belloti",lastName:"de los palotes", cellphone:4512266,email:"juenito@delospalote.com",estado:"general",doctor:"Osso de Bernoulli",date:'2014-11-12T19:30',initialHour:"16:30",finalHour:"17:00",location:"la paz"};
+const client4={name:"belloti",lastName:"de los palotes", cellphone:4512266,email:"juenito@delospalote.com",estado:"general",doctor:"Osso de Bernoulli",date:'2023-06-12T12:30',initialHour:"13:30",finalHour:"17:00",location:"la paz"};
+const client5={name:"belloti",lastName:"de los palotes", cellphone:4512266,email:"juenito@delospalote.com",estado:"general",doctor:"Osso de Bernoulli",date:'2023-02-12T10:30',initialHour:"13:30",finalHour:"17:00",location:"la paz"};
+const clients=[client1,client2,client3,client4,client5];
+
+function orderDates(){
+    const orderedDate=clients.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    return orderedDate;
+};
+console.log(orderDates());
+
+
+
+let orderedClients=[];
+function hourOrder(){
+        let hours=clients.map(client=>(client.initialHour));
+        let orderedHours=hours.sort(function(a,b){
+           return(a-b)
+        });
+        orderedHours=orderedHours.map(element => element.split(""));
+           for(let i=0;i<orderedHours.length;i++){
+                let element=orderedHours[i];
+                if(element.length<4){
+                    element[0]=`${element[0]}:`;
+                }else{
+                    element[1]=`${element[1]}:`;;
+                };
+                element.join("");
+            };
+        orderedHours=orderedHours.map(hour=>hour.join(""));
+        for (let i=0;i<orderedHours.length;i++){
+            const item=orderedHours[i];
+            const element=clients.find(client=>(client.initialHour===item));
+            orderedClients.push(element);
+            }
+        return(hours)
+    };
+console.log(hourOrder()); 
+
+console.log(clients);
+
+/* const arr=[
+    [ '7', '3', '0' ],
+    [ '8', '3', '0' ],
+    [ '1', '3', '3', '0' ],
+    [ '1', '6', '3', '0' ]
+  ];
+  function newArr(){
+    for(let i=0;i<arr.length;i++){
+        let element=arr[i];
+        if(element.length<4){
+            element[0]="holi";
+        }else{
+            element[1]="holi";
+        };
+        
+    };
+    const arr2=arr.map(item=>item.join(""));
+    return(arr2)
+  }
+  
+console.log(newArr()); */
+/* Ordenando por fechas */
+/* const arr=[
+    '2023-08-02',
+    '2024-07-08',
+    '2023-02-21',
+    '2023-11-06',
+    '2023-03-11'
+  ]
+
+function order(){
+
+    return (arr.sort((a, b) => new Date(a).getTime() - new Date(b).getTime()));
+
+}
+console.log(order()) */
+
+/* const date1="2023-02-12";
+const date2='2023-02-12T10:30';
+const regex=/^[^T]*/;
+/* function dates(){
+    const newDate=date2.match(regex)[0];
+    console.log(newDate===date1);
+    console.log(date1);
+ }
+
+ dates();
+
+ console.log([].map(element=>element*2)) */ 
+/*  const today=new Date();
+ console.log(new Date(today)); */
+
+ /* function addMin(){
+    const arr=[{dateTime:'2018-06-12T20:30',branch:"la paz"},{dateTime:'2018-06-12T15:30',branch:"el alto"},{dateTime:'2018-06-12T02:30',branch:"la paz"}];
+    let finalHour=[];
+    for(let i=0;i<arr.length;i++){
+        let minutes=new Date(arr[i].dateTime).getMinutes();
+        let hour=new Date(arr[i].dateTime).getHours();
+        if((arr[i].branch==="la paz")&&(minutes===0)){
+            minutes="45";
+        }else if((arr[i].branch==="la paz")&&(minutes===15)){
+            minutes="00";
+            hour=hour+1;
+        }else if((arr[i].branch==="la paz")&&(minutes===45)){
+            minutes="30";
+            hour=hour+1;
+        }else if((arr[i].branch==="la paz")&&(minutes===30)){
+            minutes="15";
+            hour=hour+1;
+        }else if((arr[i].branch==="el alto")&&(minutes===0)){
+            minutes="30";
+        }else if((arr[i].branch==="el alto")&&(minutes===30)){
+            minutes="00";
+            hour=hour+1;
+        };
+        hour.toString();
+        finalHour.push(`${hour}:${minutes}`);
+        
+    }
+    return finalHour
+    
+ };
+ console.log(addMin()) */
+
+ function addMin(){
+    const arr=[{dateTime:'2018-06-12T20:30',branch:"la paz"},{dateTime:'2018-06-12T15:30',branch:"el alto"},{dateTime:'2018-06-12T02:30',branch:"la paz"}];
+    let finalHour=[];
+    for(let i=0;i<arr.length;i++){
+        let initialHour=(new Date(arr[i].dateTime).getHours())*60;
+        let initialMinutes=new Date(arr[i].dateTime).getMinutes();
+        let totalMinutes=initialHour+initialMinutes;
+        let EA=30;
+        let LP=45;
+        let minutes;
+        let hours;
+        if((arr[i].branch==="la paz")){
+            hours=Math.floor((totalMinutes+LP)/(60));
+            minutes=(((totalMinutes+LP)/(60))-hours)*60;
+        }else if((arr[i].branch==="el alto")){
+            hours=Math.floor((totalMinutes+EA)/(60));
+            minutes=(((totalMinutes+EA)/(60))-hours)*60;
+        };
+        if(minutes===0){
+            minutes='00';
+        }
+
+        finalHour.push(`${hours}:${minutes}`);
+        
+    }
+    return finalHour
+    
+ };
+ console.log(addMin())
+
+ /* let k=0;
+        for(let i=0;i<indexes.length;i++){
+            let rowIndex=indexes[0];
+            if(rowIndex>-1){
+                colIndexes.push(k);
+                k++;
+            }else{
+                colIndexes.push(-1);
+            };
+        } */
